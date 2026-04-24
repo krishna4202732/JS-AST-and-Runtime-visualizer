@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AST and variable-environment visualizer </title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="theme-switch">
+        <input class="theme-switch__input" id="theme-toggle" type="checkbox"
+            aria-label="Switch between light and dark mode">
+        <label class="theme-switch__label" for="theme-toggle" title="Toggle dark mode">
+            <span class="theme-switch__sun" aria-hidden="true"></span>
+            <span class="theme-switch__moon" aria-hidden="true"></span>
+            <span class="theme-switch__thumb" aria-hidden="true"></span>
+        </label>
+    </div>
+
+    <main class="app-shell">
+        <header class="hero" aria-labelledby="page-title">
+            <p class="eyebrow">JavaScript workspace</p>
+            <h1 class="main-heading" id="page-title">AST and runtime visualizer for JS</h1>
+            <p class="hero-copy">Single-scope parsing with a live syntax tree and variable environment view.</p>
+        </header>
+
+        <section class="workspace-grid" aria-label="AST visualizer workspace">
+            <article class="panel panel--editor">
+                <div class="section-heading">
+                    <span class="section-kicker">Input</span>
+                    <h2>Code editor</h2>
+                </div>
+                <div class="editor-window editor-window--code">
+                    <div class="editor-titlebar">
+                        <div class="window-controls" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="editor-tab">index.js</span>
+                        <span class="editor-language">JavaScript</span>
+                    </div>
+                    <div class="code-editor" id="code-editor">
+                        <div class="line-numbers" id="code-line-numbers" aria-hidden="true">1</div>
+                        <pre class="highlight-layer" aria-hidden="true"><code id="code-highlight"></code></pre>
+                        <textarea id="code" rows="10" cols="50" placeholder="Paste your JS code here" spellcheck="false"
+                            autocomplete="off" autocapitalize="off" wrap="soft"></textarea>
+                    </div>
+                </div>
+                <button class="run" type="button">Run</button>
+            </article>
+
+            <article class="panel panel--ast">
+                <div class="section-heading">
+                    <span class="section-kicker">Output</span>
+                    <h2 id="AST">AST visualization</h2>
+                </div>
+                <div class="editor-window editor-window--output">
+                    <div class="editor-titlebar">
+                        <div class="window-controls" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="editor-tab">ast.json</span>
+                        <span class="editor-language">JSON</span>
+                    </div>
+                    <div class="readonly-editor">
+                        <div class="line-numbers line-numbers--output" id="output-line-numbers" aria-hidden="true">1
+                        </div>
+                        <pre id="output" class="json-output">AST visualization here</pre>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel panel--environment">
+                <div class="section-heading">
+                    <span class="section-kicker">Scope</span>
+                    <h2 id="variable-environment">Variable environment before execution</h2>
+                </div>
+                <pre id="variables"></pre>
+            </article>
+
+            <article class="panel panel--scope-chain">
+                <div class="section-heading">
+                    <span class="section-kicker">Lexical map</span>
+                    <h2>Full scope chain</h2>
+                </div>
+                <div class="scope-chain" id="scope-chain" aria-live="polite"></div>
+            </article>
+
+            <article class="panel panel--contexts">
+                <div class="section-heading">
+                    <span class="section-kicker">Runtime model</span>
+                    <h2>Execution contexts</h2>
+                </div>
+                <div class="execution-contexts" id="execution-contexts" aria-live="polite"></div>
+            </article>
+
+            <article class="panel panel--memory">
+                <div class="section-heading">
+                    <span class="section-kicker">Memory</span>
+                    <h2>Call stack and heap</h2>
+                </div>
+                <div class="memory-grid" id="memory-grid">
+                    <svg class="binding-layer" id="binding-layer" aria-hidden="true"></svg>
+                    <section class="memory-column" aria-labelledby="call-stack-title">
+                        <h3 id="call-stack-title">Call stack</h3>
+                        <div class="call-stack" id="call-stack" aria-live="polite"></div>
+                    </section>
+
+                    <section class="memory-column" aria-labelledby="heap-title">
+                        <h3 id="heap-title">Heap</h3>
+                        <div class="heap-map" id="heap-map" aria-live="polite"></div>
+                    </section>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
